@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% if blogs %}
+        <h2>Found {{posts|length}} related to  "{{message}}"</h2>
+        {% else %}
+        <h2>Found 0 results for  "{{message}}</h2>
+        {% endif %}
+    </div>
+
+    {% if posts %}
+    <div class="text-center">
+        <div class="panel">
+            <div class="panel-body">
+                {% for post in posts %}
+                <div class="card">
+                    <div class="card-body">
+                        <a href="/view/post/{{post.id}}"><h5 class="card-title">
+                            {{post.title}}</h5>
+                        </a>
+                        <a href="/user/{{post.username}}">
+                            <h6 class="card-subtitle">{{post.name}}</h6>
+                        </a>
+                        <p class="card-text">
+                            {{post.post|truncatechars:200 | safe}}
+                        </p>
+                        <a href="/view/blog.{{blog.id}}" class="card-link">Continue reading</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock%}
