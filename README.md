@@ -7,10 +7,18 @@ An application  that allows users to be in the loop about everything happening i
 ## Author
 virginiah periah [https://github.com/virginiah894]
 
-## Behavior Driven Development (BDD)
-As a user of the application you will be able to:
+## Application Features  and BDD
+As a user of the web application you will be able to:
 
-Create an account and login,the account will store all your projects As a user you are able to view what other users have posted You are able to rate other puser`s projects Create your own projects and have them saved on your profile search for other users and see their projects Update your profile
+- Sign up and log in
+- Choose your neighbourhood
+- View posted alerts and post by other users from your neighbourhood
+- Post alerts and posts
+- Comment on a post
+- Edit your profile
+- See the different services around your neighborhood like schools and hospitals
+
+
 
 # Setup and installation
 Getting Started Fork this repository or clone it to your local machine on ubuntu use the following commands git clone this repository at [https://github.com/virginiah894/Hood-alert]
@@ -44,4 +52,4 @@ If you'd like to request a new function, feel free to do so by opening an issue 
 
 
 ## License
-MIT
+[MIT](https://github.com/virginiah894/Hood-alert/blob/master/LICENSE)
