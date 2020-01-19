@@ -10,7 +10,11 @@
 <div class="container">
     <div class="text-center">
         <div class="user-image mt-5">
+            {% if profile.picture %}
+
             <img src="{{user.profile.picture.url}}" alt="" height="250" width="250" style="border-radius: 50%;">
+
+{% endif %}
         </div>
         <hr>
         <p class="mt-2">Name: <strong>{{user.profile.name}}</strong></p>

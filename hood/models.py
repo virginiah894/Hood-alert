@@ -23,7 +23,7 @@ class Profile(models.Model):
   name = models.CharField(max_length=70)
   email = models.EmailField(null=True)
   bio = models.CharField(max_length=400)
-  picture = models.ImageField(upload_to='profile/',blank=True)
+  picture = models.ImageField(upload_to='profile/',blank=True, default='yummy.jpg')
   hood = models.ForeignKey(Hood, on_delete=models.CASCADE,null=True)
 
   def __str__(self):
