@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+<div class="container">
+  <div class="text-center mt-5 mb-2">
+    <a href="{% url 'newBiz' %}">
+      <button class="btn btn-warning btn-lg">Business in  {{user.profile.hood}}</button>
+    </a>
+  </div>
+
+  <div class="row">
+    {% for biz in biz %}
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title" data-toggle="modal" data-target="#{{business.id}}">{{biz.name|truncatechars:19}}
+          </h3>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="{{business.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content text-center">
+          <div class="modal-header text-center">
+            <h3 class="text-center">{{biz.name}}</h3>
+          </div>
+          <div class="modal-body">
+            <img class="card-img-top" src="{{business.logo.url}}" height=200 width=100>
+
+            <p><span>Owner:</span> {{biz.owner}}</p>
+            <p><span>Description:</span> {{biz.details|safe}}</p>
+          </div>
+          <div class="modal-footer" style="display:block;">
+
+            <h4 class="text-center">Contacts</h4>
+            <p><span>Phone Number:</span> {{biz.contacts}}</p>
+            <p><span>Address:</span> {{biz.location}}</p>
+            <p><span>Email:</span> {{biz.email}}</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}
