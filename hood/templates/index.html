@@ -25,11 +25,11 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{user.username}} <p>Account</p>
+          {{user.username}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Check profile</a>
-          <a class="dropdown-item" href="#">Create a post</a>
+          <a class="dropdown-item" href="{%url 'profile'%}">Check profile</a>
+          <a class="dropdown-item" href="{% url 'update'%}">create and update profile</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Change Neighbourhood</a>
         </div>
@@ -37,11 +37,11 @@
       <li class="nav-item">
         <a class="nav-link disabled" href="#">Logout</a>
       </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+    </ul><form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search_results'%}">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="post">
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
     </form>
+
   </div>
 </nav>
 </div>
@@ -94,26 +94,32 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 collage">
             
-                <h4 class="centered">Alerts</h4>
-            </a>
+                <h4 class="centered"> Notifications</h4>
+               <a href="{% url 'updates' %}">Check the latest updates</a>
+                <button><a href="{% url 'newUpdate'%}">Post an update</a></button>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 collage">
-                            <h4 class="centered">Neighbourhood Posts</h4>
-            </a>
+                            <h4 class="centered">Hood Posts</h4>
+                            <a href="{% url 'post' %}">Latest Posts</a>
+                            <button><a href="{% url 'newPost'%}">Share your post</a></button>
+
         </div>
     </div>
     <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 collage">
                 <h4 class="centered">Health Services</h4>
-            </a>
+                <a href="{% url 'hosy' %}">Check the latest updates</a>
+
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 collage">
-                <h4 class="centered">Businesses</h4>
-            </a>
+                <h4 class="centered">Business in  {{user.profile.hood}}</h4>
+                <a href="{% url 'biz' %}">Shooping Centers around</a>
+
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 collage">
-                <h4 class="centered">Authorities</h4>
-            </a>
+                <h4 class="centered">Administrators in {{user.profile.hood}}</h4>
+                <a href="{% url 'admin' %}">Authorities around</a>
+
         </div>
     </div>
 </div>
