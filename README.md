@@ -1,19 +1,21 @@
 ## App Name :
 Hood Alert
+## Description
+An application  that allows users to be in the loop about everything happening in your neighborhood. From contact information of different handyman to meeting announcements or even alerts.
 
-An application for users to post their projects and see what other people's projects and rate them
+
 ## Author
 virginiah periah [https://github.com/virginiah894]
 
-Behavior Driven Development (BDD)
+## Behavior Driven Development (BDD)
 As a user of the application you will be able to:
 
 Create an account and login,the account will store all your projects As a user you are able to view what other users have posted You are able to rate other puser`s projects Create your own projects and have them saved on your profile search for other users and see their projects Update your profile
 
-Setup and installation
-Getting Started Fork this repository or clone it to your local machine on ubuntu use the following commands git clone this repository at [https://github.com/virginiah894/Awards]
+# Setup and installation
+Getting Started Fork this repository or clone it to your local machine on ubuntu use the following commands git clone this repository at [https://github.com/virginiah894/Hood-alert]
 
-Installations
+## Installations
 Python version 3.6 Installation guide
 
 Django version 3.0 see installation details here[https://docs.djangoproject.com/en/3.0/topics/install/]
@@ -31,5 +33,15 @@ Bootstrap 4
 CSS
 HTML5
 
-License
+##  KNOWN BUGS
+
+
+* If you encounter any  bug (the website couldn't handle the query and or gave undesired results), kindly open an issue here by including your search query and the expected results.
+
+If you'd like to request a new function, feel free to do so by opening an issue here. Please include sample queries and their corresponding results.
+
+
+
+
+## License
 MIT

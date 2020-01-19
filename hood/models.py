@@ -12,16 +12,19 @@ from django.db.models.signals import  post_save
 
 class Hood(models.Model):
      hood_name = models.CharField(max_length = 60)
+     def __str__(self):
+        return self.hood_name
+
 
 
 
 class Profile(models.Model):
-  user= models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
+  user= models.OneToOneField(User,on_delete=models.CASCADE)
   name = models.CharField(max_length=70)
-  email = models.EmailField()
+  email = models.EmailField(null=True)
   bio = models.CharField(max_length=400)
-  picture = models.ImageField(upload_to='profile/')
-  hood = models.ForeignKey(Hood, on_delete=models.CASCADE)
+  picture = models.ImageField(upload_to='profile/',blank=True)
+  hood = models.ForeignKey(Hood, on_delete=models.CASCADE,null=True)
 
   def __str__(self):
     return self.name
@@ -42,7 +45,7 @@ class updates(models.Model):
     title = models.CharField(max_length=50)
     notification = models.CharField(max_length=170)
     editor = models.ForeignKey(User, on_delete=models.CASCADE)
-    hood = models.ForeignKey(Hood, on_delete=models.CASCADE)
+    hood = models.ForeignKey(Hood, on_delete=models.CASCADE,null=True)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -52,12 +55,12 @@ class Businesses(models.Model):
     logo = models.ImageField(upload_to='businesslogo/')
     details = models.CharField(max_length=200)
    
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
+    owner = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    name = models.CharField(max_length=140)
+    email = models.EmailField(null=True)
     location = models.CharField(max_length=100)
-    contacts = models.IntegerField()
-    hood = models.ForeignKey(Hood, on_delete=models.CASCADE)
+    contacts = models.IntegerField(default=0)
+    hood = models.ForeignKey(Hood, on_delete=models.CASCADE,null=True)
 
     def __str__(self):
         return self.name
@@ -79,11 +82,11 @@ class Medicalservices(models.Model):
 
 
 class HealthServices(models.Model):
-    logo = models.ImageField(upload_to='healthlogo/',default='yumy.jpg')
-    hood = models.ForeignKey(Hood, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
-    contact = models.IntegerField()
+    logo = models.ImageField(upload_to='healthlogo/')
+    hood = models.ForeignKey(Hood, on_delete=models.CASCADE,null=True)
+    name = models.CharField(max_length=70)
+    email = models.EmailField(null=True)
+    contact = models.IntegerField(default=0)
     address = models.CharField(max_length=100)
     Medicalservices = models.ManyToManyField(Medicalservices)
 
@@ -92,10 +95,10 @@ class HealthServices(models.Model):
 
 
 class Adminstration(models.Model):
-    hood = models.ForeignKey(Hood, on_delete=models.CASCADE)
+    hood = models.ForeignKey(Hood, on_delete=models.CASCADE,null=True)
     name = models.CharField(max_length=100)
-    email = models.EmailField()
-    contact = models.IntegerField()
+    email = models.EmailField(null=True)
+    contact = models.IntegerField(default=0)
     address = models.CharField(max_length=100)
 
     def __str__(self):
@@ -105,10 +108,10 @@ class Adminstration(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=150)
+    title = models.CharField(max_length=100)
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    hood = models.ForeignKey(Hood, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    hood = models.ForeignKey(Hood, on_delete=models.CASCADE,null=True)
     posted_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='post/')
     post = models.CharField(max_length=200)
@@ -124,6 +127,6 @@ class Post(models.Model):
 
 class Comments(models.Model):
     comment = models.CharField(max_length=300,null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,null=True)
  

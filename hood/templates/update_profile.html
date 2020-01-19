@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load bootstrap4 %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container">
@@ -18,12 +19,16 @@
                     <form action="{% url 'update' %}" method="post" enctype="multipart/form-data">
 
                         {% csrf_token %}
-                        {% bootstrap_form form %}
+                        {{user_form|crispy}}
+                        <p>Info</p>
+
+                        {{details_form|crispy}}
 
                         <div class="form-group"><input type="submit" value="post" class="btn btn-primary"></div>
                         <input type="hidden" name="next" value="/">
                     
                     </form>
+                    
                 </div>
             </div>
         </div>

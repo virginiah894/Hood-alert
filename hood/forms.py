@@ -23,10 +23,28 @@ class DetailsUpdate(forms.ModelForm):
     model = Profile
     exclude= ['user']  
 
+class BizForm(forms.ModelForm):
+    class Meta:
+        model = Businesses
+        exclude = ['owner', 'hood']
 
+class CommentsForm(forms.ModelForm):
+    class Meta:
+        model = Comments
+        exclude = ['user', 'post']
 
 
 class UpdatesForm(forms.ModelForm):
     class Meta:
         model = updates
         exclude = ['editor', 'hood', 'created_date']
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ['user']
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        exclude = ['user', 'hood']

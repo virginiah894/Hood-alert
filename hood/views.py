@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
+from django.http import HttpResponse, Http404, HttpResponseRedirect
+
 from .models import Profile,Hood,updates,Businesses,Medicalservices,HealthServices,Adminstration,Post,Comments
-from .forms import AccountUpdate,DetailsUpdate, UpdatesForm
+from .forms import AccountUpdate,DetailsUpdate, UpdatesForm, ProfileForm,PostForm, BizForm,CommentsForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -45,7 +47,7 @@ def profile(request):
   current_user = request.user
   profile = Profile.objects.filter(user = request.user)
 
-  user_x=User.objects.get(id=request.user.id)
+  
   
   
   return render(request,'profile.html',locals())
@@ -55,13 +57,56 @@ def profile(request):
 def updates(request):
     current_user = request.user
     profile = Profile.objects.get(user=current_user)
-    updates = updates.objects.filter(hood=profile.hood)
+    current_updates = updates.objects.filter(hood=profile.hood)
 
-    return render(request, 'updates.html', locals())
+    return render(request, 'updates.html', {"updates":current_notifications})
+
+# creting  a profile
+@login_required(login_url='/accounts/login/')
+def create_profile(request):
+    current_user=request.user
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = current_user
+            profile.save()
+        return HttpResponseRedirect('/')
+
+    else:
+        form = ProfileForm()
+    return render(request, 'profile_form.html', {"form":form})
 
 
 
+@login_required(login_url='/accounts/login/')
+def post(request):
+    current_user=request.user
+    profile = Profile.objects.get(user=current_user)
+    posts = Post.objects.filter(hood=profile.hood)
 
+    return render(request, 'post.html', {"posts":posts})
+
+
+@login_required(login_url='/accounts/login/')
+def new_post(request):
+    current_user = request.user
+    profile = Profile.objects.get(user=current_user)
+
+    if request.method == 'POST':
+        form  = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit = False)
+            post.user = current_user
+            post.hood = profile.hood
+            post.save()
+
+        return HttpResponseRedirect('/posts')
+
+    else:
+        form =PostForm()
+
+    return render(request, 'post_form.html', {"form":form})
 
 
 
@@ -90,3 +135,63 @@ def new_update(request):
 
     return render(request, 'updates_form.html',locals())
 
+@login_required(login_url='/accounts/login/')
+def hosy(request):
+    current_user = request.user
+    profile = Profile.objects.get(user=current_user)
+    Medicalservices = HealthServices.objects.filter(hood=profile.hood)
+
+    return render(request, 'hosy.html', {"Medicalservice":Medicalservices})
+@login_required(login_url='/accounts/login/')
+
+def administration(request):
+    current_user=request.user
+    profile=Profile.objects.get(user=current_user)
+    admin=Adminstration.objects.filter(hood=profile.hood)
+
+    return render(request, 'admin.html', locals())
+@login_required(login_url='/accounts/login/')
+def local_biz(request):
+    current_user = request.user
+    profile = Profile.objects.get(user = current_user)
+    biz = Businesses.objects.filter(hood=profile.hood)
+
+    return render(request, 'biz.html', locals())
+
+
+@login_required(login_url='/accounts/login/')
+def new_biz(request):
+    current_user = request.user
+    profile = Profile.objects.get(user=current_user)
+
+    if request.method == "POST":
+        form = BizForm(request.POST, request.FILES)
+        if form.is_valid():
+            biz = form.save(commit=False)
+            biz.owner = current_user
+            biz.hood = profile.hood
+            biz.save()
+
+        return HttpResponseRedirect('/business')
+
+    else:
+        form = BizForm()
+
+    return render(request, 'biz_form.html', {"form":form})
+
+
+
+
+@login_required(login_url='/accounts/login/')
+def search_results(request):
+    if 'post' in request.GET and request.GET["post"]:
+        search_term = request.GET.get("post")
+        searched_posts = Post.search_post(search_term)
+        message = f"{search_term}"
+
+
+        return render(request, 'search.html', locals())
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html', {"message":message})

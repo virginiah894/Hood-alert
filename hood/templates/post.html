@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+<div class="container">
+  <div class="text-center mt-5 mb-2">
+    <a href="{% url 'newPost' %}">
+      <button class="btn btn-warning">Create Post</button>
+    </a>
+  </div>
+<p> Posts in {{user.profile.hood}}</p>
+  <div class="row">
+    {% for post in posts %}
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class=" card-body">
+          <a href="/view/post/{{post.id}}">
+            <h5 class="card-title">{{post.title}}</h5>
+          </a>
+          <a href="/user/{{blog.username}}">
+            <h6 class="card-subtitle mb-2 text-muted">{{post.user}}</h6>
+          </a>
+          <p class="card-text">{{post.post| safe}}</p>
+          <a href="/view/blog/{{post.id}}" class="card-link">Continue reading</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
