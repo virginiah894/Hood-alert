@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-md-4 mx-auto">
+      {{form.media}}
+
+      {% if form.errors %}
+        <p>Please enter correct value</p>
+      {% endif %}
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="text-center">
+            <form action="{% url 'newPost' %}" method="post" enctype="multipart/form-data">
+
+              {% csrf_token%}
+              {% bootstrap_form form %}
+
+              <div class="form-group">
+                <input type="submit" class="btn btn-warning login-button" value="Post">
+
+              </div>
+              <input type="hidden" name="next" value="/">
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}
