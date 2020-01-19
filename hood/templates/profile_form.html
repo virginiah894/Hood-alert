@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+            <div class="col-md-4 mx-auto mt-5 bg-light pt-5 pb-3">
+            {{form.media}}
+
+            {% if form.errors %}
+            <p>Please enter correct value</p>
+            {% endif %}
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Create your profile</h3>
+                    <form action="{% url 'createProfile' %}" method="post" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+
+                        <div class="form-group"><input type="submit" value="post" class="btn btn-primary"></div>
+                        <input type="hidden" name="next" value="/">
+                    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
